@@ -48,6 +48,7 @@ function App() {
   useEffect(() => {
     axios.get(`${getHost()}/api/v1/oneYearSeasonalIncomeData.json`, {}).then((response) => {
       const data = response.data;
+  
       setSeasonalIncome(data);
       setSeasonalIncomeOneYear(data);
     });
