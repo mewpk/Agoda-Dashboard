@@ -1,0 +1,37 @@
+{
+  "labels": [
+    "January",
+    "Febuary",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ],
+  "datasets": [
+    {
+      "tension": 0.5,
+      "fill": true,
+      "label": "2022",
+      "data": [
+        19657,
+        19623,
+        19917,
+        19601,
+        19456,
+        20089,
+        20710,
+        21220,
+        20112,
+        20777,
+        22067,
+        23815
+      ]
+    }
+  ]
+}
