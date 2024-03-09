@@ -15,4 +15,3 @@ Run development
 ```sh
 npm run start
 ```
-# Agoda-Dashboard
