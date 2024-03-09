@@ -30,6 +30,7 @@ function App() {
   useEffect(() => {
     axios.get(`${getHost()}/api/v1/oneYearTurnupRatioData.json`, {}).then((response) => {
       const data = response.data;
+      console.log(data)
       setOneYearTurnupRatioData(data);
     });
   }, []);
