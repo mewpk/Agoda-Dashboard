@@ -4,6 +4,10 @@ import { useState, useEffect } from 'react';
 import { getHost } from './services/hostService';
 import BookingsTableV2 from './components/BookingsTableV2';
 import BookingsTable from './components/BookingsTable';
+import LineChart from './components/LineChart';
+import ButtonBar from './components/ButtonBar';
+import Header from './components/Header';
+
 
 function App() {
   const [bookings, setBookings] = useState([]);
@@ -77,6 +81,33 @@ function App() {
     });
     setBookings(rows);
   }, [guests, transactions, reviews])
+  
+
+
+  const [seasonalIncome, setSeasonalIncome] = useState([]);
+  const [seasonalIncomeOneYear, setSeasonalIncomeOneYear] = useState([]);
+
+  useEffect(() => {
+      
+      axios.get(`${getHost()}/api/v1/oneYearSeasonalIncomeData.json`).then((response) => {
+        
+        console.log(response.data);
+        setSeasonalIncome(response.data);
+        setSeasonalIncomeOneYear(response.data);
+      });
+  
+    }, []);
+
+  const [seasonalIncomeThreeYears, setSeasonalIncomeThreeYears] = useState([]);
+
+  useEffect(() => {
+        
+        axios.get(`${getHost()}/api/v1/threeYearsSeasonalIncomeData.json`).then((response) => {
+          
+          setSeasonalIncomeThreeYears(response.data);
+        });
+    
+      }, []);
 
 
 
@@ -85,13 +116,41 @@ function App() {
   // guest
   // transaction
   // review
+  
+  const handleChangeSeasonalIncome = (event) => {
+    if(event.target.getAttribute("name") === "oneYear"){
+      setSeasonalIncome(seasonalIncomeOneYear);
+    }
+    else {
+      setSeasonalIncome(seasonalIncomeThreeYears);
 
+    }
+  
+  }
 
 
 
   return (
     <div className="App">
+      
+      <Header>
+        SeasonalIncome
 
+        <ButtonBar managed slot='right' ontap={handleChangeSeasonalIncome}>
+          <ef-button name="oneYear" toggles>
+            One Year
+          </ef-button>
+          <ef-button name="threeYear" toggles>
+            Three Years
+          </ef-button>
+
+        </ButtonBar>
+
+
+      </Header>
+      <LineChart data={seasonalIncome} displayLegend yAxisLabel={"Income"} />
+
+      
       
 
 
