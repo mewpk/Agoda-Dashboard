@@ -5,6 +5,7 @@ import { getHost } from './services/hostService';
 import BookingsTableV2 from './components/BookingsTableV2';
 import BookingsTable from './components/BookingsTable';
 import LineChart from './components/LineChart';
+import PieChart from './components/PieChart';
 import ButtonBar from './components/ButtonBar';
 import Header from './components/Header';
 
@@ -109,13 +110,45 @@ function App() {
     
       }, []);
 
+    const [roomTypes, setRoomTypes] = useState([]);
+
+    useEffect(() => {
+
+      axios.get(`${getHost()}/api/v1/roomTypesData.json`).then((response) => {
+          
+
+        console.log(response.data);
+          setRoomTypes(response.data);
+        });
+
+    }, []);
 
 
+  const [stayingLengthData, setStayingLengthData] = useState({});
+  useEffect(() => {
+    axios.get(`${getHost()}/api/v1/stayingLengthData.json`, {}).then((response) => {
+      const data = response.data;
+      setStayingLengthData(data);
+    });
+  }, []);
 
-  // booking
-  // guest
-  // transaction
-  // review
+  const [visitPurposeData, setVisitPurposeData] = useState({});
+  useEffect(() => {
+    axios.get(`${getHost()}/api/v1/visitPurposeData.json`, {}).then((response) => {
+      const data = response.data;
+      setVisitPurposeData(data);
+    });
+  }, []);
+
+  const [visitorTypeData, setVisitorTypeData] = useState({});
+  useEffect(() => {
+    axios.get(`${getHost()}/api/v1/visitorTypeData.json`, {}).then((response) => {
+      const data = response.data;
+      console.log(data)
+      setVisitorTypeData(data);
+    });
+  }, []);
+
   
   const handleChangeSeasonalIncome = (event) => {
     if(event.target.getAttribute("name") === "oneYear"){
@@ -150,6 +183,15 @@ function App() {
       </Header>
       <LineChart data={seasonalIncome} displayLegend yAxisLabel={"Income"} />
 
+      <div className='grid grid-cols-2 gap-2' >
+
+        <PieChart data={roomTypes} displayLegend yAxisLabel={"Room Types"} />
+        <PieChart data={visitorTypeData} displayLegend yAxisLabel={"Visitor Type"} />
+        <PieChart data={visitPurposeData} displayLegend yAxisLabel={"Visit Purpose"} />
+        <PieChart data={stayingLengthData} displayLegend yAxisLabel={"Staying Length"} />
+
+
+      </div>
       
       
 
