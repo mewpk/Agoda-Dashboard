@@ -137,7 +137,7 @@ function App() {
         SeasonalIncome
 
         <ButtonBar managed slot='right' ontap={handleChangeSeasonalIncome}>
-          <ef-button name="oneYear" toggles>
+          <ef-button name="oneYear" toggles active>
             One Year
           </ef-button>
           <ef-button name="threeYear" toggles>
